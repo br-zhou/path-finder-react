@@ -34,8 +34,9 @@ background-color: white;
   position: absolute;
   top: 0 px;
   margin: 0;
-  width: 75px;
   height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 #bot-right {

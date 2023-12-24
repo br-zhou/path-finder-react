@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Editor } from "./game/editor.js";
+import Toolbar from "./Components/Toolbar.js";
 
 
 function App() {
@@ -11,8 +12,7 @@ function App() {
 
   return (
     <>
-      <div id="left-bar">
-      </div>
+      <Toolbar />
 
       <div id="bot-right">
 
