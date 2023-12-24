@@ -7,7 +7,37 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+:root {
+  --corner-margins: 10px;
+}
+
+body {
+position: absolute;
+margin: 0;
+overflow: hidden;
+background-color: white;
+}
+
+#top-left {
+  background-color: rgba(0,0,0,.5);
+  position: absolute;
+  top: 0 px;
+  margin: var(--corner-margins);
+}
+
+#left-bar {
+  background-color: rgba(0,0,0,.5);
+  position: absolute;
+  top: 0 px;
+  margin: 0;
+  width: 75px;
+  height: 100%;
+}
+
+#bot-right {
+  background-color: rgba(255,255,255,.5);
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: var(--corner-margins);
 }
