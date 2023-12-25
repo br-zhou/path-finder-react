@@ -37,7 +37,7 @@ export default class Brush {
         this.state = "start";
         break;
       case "f":
-        this.state = "finish";
+        this.state = "goal";
         break;
       default:
         break;
@@ -87,8 +87,8 @@ export default class Brush {
       case "start":
         if (!this.mouseDrag) this.paint(tileData, "start");
         break;
-      case "finish":
-        if (!this.mouseDrag) this.paint(tileData, "finish");
+      case "goal":
+        if (!this.mouseDrag) this.paint(tileData, "goal");
         break;
       case "eraser":
         this.erase(tileData);

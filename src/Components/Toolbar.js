@@ -9,10 +9,10 @@ const Toolbar = () => {
     }
 
     return <div id="left-bar">
-        <ToolbarBtn mode="brush" text="🖌️ Brush" selected='true' click={clickHandler} />
+        <ToolbarBtn mode="brush" text="🖌️ Brush" click={clickHandler} />
         <ToolbarBtn mode="eraser" text="❌ Eraser" click={clickHandler} />
         <ToolbarBtn mode="start" text="🚀 Start" click={clickHandler} />
-        <ToolbarBtn mode="finish" text="🚩 Finish" click={clickHandler} />
+        <ToolbarBtn mode="goal" text="🚩 Goal" click={clickHandler} />
     </div>;
 }
 
