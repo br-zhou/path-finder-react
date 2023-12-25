@@ -32,10 +32,16 @@ export default class Brush {
       case "b":
         this.state = "brush";
         break;
+      case "s":
+        this.state = "start";
+        break;
+      case "f":
+        this.state = "finish";
+        break;
       default:
         break;
     }
-    
+
     store.dispatch({ type: "brushMode", value: this.state });
   };
 
@@ -68,7 +74,13 @@ export default class Brush {
     const tileData = this.tileMap.mapData_.tileData;
     switch (this.state) {
       case "brush":
-        this.paint(tileData);
+        this.paint(tileData, "wall");
+        break;
+      case "start":
+        this.paint(tileData, "start");
+        break;
+      case "finish":
+        this.paint(tileData, "finish");
         break;
       case "eraser":
         this.erase(tileData);
@@ -78,9 +90,9 @@ export default class Brush {
     }
   }
 
-  paint(tileData) {
+  paint(tileData, type = 1) {
     if (!tileData[this.mouseGridIndex.x]) tileData[this.mouseGridIndex.x] = {};
-    tileData[this.mouseGridIndex.x][this.mouseGridIndex.y] = 1;
+    tileData[this.mouseGridIndex.x][this.mouseGridIndex.y] = type;
   }
 
   erase(tileData) {

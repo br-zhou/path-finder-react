@@ -2,7 +2,12 @@ import { CanvasTools } from "./canvasTools.js";
 import { Vector2 } from "./vector2.js";
 
 export const TILE_SIZE = 2;
-const tileColor = "#000000";
+
+const tileColorMap = {
+  "wall" : "#000000",
+  "start" : "#00FF00",
+  "finish" : "#FF0000"
+}
 /**
  * TileMap for ground
  */
@@ -33,7 +38,8 @@ export class TileMap {
       // todo: optimize rendering to only show tiles visible to camera
       for (const gridX of Object.keys(this.mapData_.tileData)) {
         for (const gridY of Object.keys(this.mapData_.tileData[gridX])) {
-          this.colorGrid({ x: gridX, y: gridY }, tileColor);
+          const blockType = this.mapData_.tileData[gridX][gridY];
+          this.colorGrid({ x: gridX, y: gridY }, tileColorMap[blockType]);
         }
       }
     }
