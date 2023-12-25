@@ -55,8 +55,8 @@ export class TileMap {
         x: x * TILE_SIZE + this.offsetX_,
         y: y * TILE_SIZE + this.offsetY_,
       },
-      TILE_SIZE,
-      TILE_SIZE,
+      TILE_SIZE + TILE_SIZE / 100,
+      TILE_SIZE + TILE_SIZE / 100,
       color
     );
   }

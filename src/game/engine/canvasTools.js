@@ -144,12 +144,15 @@ export class CanvasTools {
    */
   drawRectOutline = ({ x, y }, width, height, color = "#FF0000") => {
     this.ctx.strokeStyle = color;
+    const originalLineWidth = this.ctx.lineWidth;
+    this.ctx.lineWidth = 2;
     this.ctx.strokeRect(
       this.worldToScreenPosX(x),
       this.worldToScreenPosY(y),
       this.worldToScreenConvert(width),
       this.worldToScreenConvert(height)
     );
+    this.ctx.lineWidth = originalLineWidth;
   }
 
   /**
