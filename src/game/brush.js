@@ -48,8 +48,10 @@ export default class Brush {
 
   onMouseDown = (e) => {
     const btn = e.button;
-    if (btn === 0) this.mouseDown = true;
-    this.handlePainting();
+    if (btn === 0) {
+      this.mouseDown = true;
+      this.handlePainting();
+    }
   };
 
   onMouseUp = (e) => {
