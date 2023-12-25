@@ -9,7 +9,8 @@ export default class Brush {
     this.mousePos = new Vector2();
     this.tools = new CanvasTools();
     this.tileMap = scene.tileMap;
-    this.mouseDrag = false;
+    this.mouseDown = false;
+    this.mouseDown = false;
     this.mouseWorldPos = null;
     this.mouseGridIndex = null;
     this.canvas = this.scene.camera_.canvas_.canvas_;
@@ -47,17 +48,22 @@ export default class Brush {
 
   onMouseDown = (e) => {
     const btn = e.button;
-    if (btn === 0) this.mouseDrag = true;
+    if (btn === 0) this.mouseDown = true;
+    this.handlePainting();
   };
 
   onMouseUp = (e) => {
     const btn = e.button;
-    if (btn === 0) this.mouseDrag = false;
+    if (btn === 0) {
+      this.mouseDown = false;
+      this.mouseDrag = false;
+    }
   };
 
   onMouseMove = (e) => {
     this.mousePos.x = e.clientX;
     this.mousePos.y = e.clientY;
+    if (this.mouseDown) this.mouseDrag = true;
   };
 
   update() {
@@ -65,7 +71,7 @@ export default class Brush {
     this.mouseGridIndex = this.tileMap.positionToGridIndex(this.mouseWorldPos);
     this.render();
 
-    if (this.mouseDrag) this.handlePainting();
+    if (this.mouseDown) this.handlePainting();
   }
 
   handlePainting() {
@@ -77,10 +83,10 @@ export default class Brush {
         this.paint(tileData, "wall");
         break;
       case "start":
-        this.paint(tileData, "start");
+        if (!this.mouseDrag) this.paint(tileData, "start");
         break;
       case "finish":
-        this.paint(tileData, "finish");
+        if (!this.mouseDrag) this.paint(tileData, "finish");
         break;
       case "eraser":
         this.erase(tileData);

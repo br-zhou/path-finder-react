@@ -2,7 +2,6 @@ import Brush from "./brush.js";
 import { startLoop } from "./engine/animationLoop.js";
 import { Scene } from "./engine/scene.js";
 import CameraController from "./cameraController.js";
-import { UserInterface } from "./userInterface.js";
 
 /**
  * Contains main game logic
@@ -15,7 +14,6 @@ export class Editor {
     this.scene = new Scene();
     this.inputHandler = new CameraController(this.scene);
     this.brush = new Brush(this.scene);
-    this.ui = new UserInterface(this.scene);
 
     this.setup();
     startLoop(this.loop);
