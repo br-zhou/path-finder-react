@@ -1,5 +1,6 @@
 import { CanvasTools } from "./engine/canvasTools.js";
 import { Vector2 } from "./engine/vector2.js";
+import store from "../store/redux.js";
 
 export default class Brush {
   constructor(scene) {
@@ -34,6 +35,8 @@ export default class Brush {
       default:
         break;
     }
+    
+    store.dispatch({ type: "brushMode", value: this.state });
   };
 
   onMouseDown = (e) => {
