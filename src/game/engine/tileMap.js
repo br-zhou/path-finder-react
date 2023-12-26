@@ -1,5 +1,6 @@
 import { CanvasTools } from "./canvasTools.js";
 import { Vector2 } from "./vector2.js";
+import store from "../../store/redux.js";
 
 export const TILE_SIZE = 2;
 
@@ -16,15 +17,23 @@ export class TileMap {
     this.mapData_ = null;
     this.tools = new CanvasTools();
 
-    this.mapData_ = {
-      name: "test map",
-      width: 15,
-      height: 15,
-      tileData: {},
-    };
+    store.subscribe(this.reduxSubscriptionHandler);
+
+    this.mapData_ = this.getReduxSlice();
 
     this.offsetX_ = 0;
     this.offsetY_ = 0;
+  }
+
+  getReduxSlice = () => {
+    const fullState = store.getState();
+    return fullState.mapData;
+  }
+
+  reduxSubscriptionHandler = () => {
+    const slice = this.getReduxSlice();
+    this.mapData_ = {...slice};
+    console.log("tilemap updated!");
   }
 
   render() {

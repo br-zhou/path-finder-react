@@ -79,41 +79,40 @@ export default class Brush {
   handlePainting() {
     if (!this.isPaintable(this.mouseGridIndex)) return;
 
-    const tileData = this.tileMap.mapData_.tileData;
     switch (this.state) {
       case "brush":
-        this.paint(tileData, "wall");
+        this.paint(this.mouseGridIndex, "wall");
         break;
       case "start":
-        if (!this.mouseDrag) this.paint(tileData, "start");
+        if (!this.mouseDrag) this.paint(this.mouseGridIndex, "start");
         break;
       case "goal":
-        if (!this.mouseDrag) this.paint(tileData, "goal");
+        if (!this.mouseDrag) this.paint(this.mouseGridIndex, "goal");
         break;
       case "eraser":
-        this.erase(tileData);
+        this.erase(this.mouseGridIndex);
         break;
       default:
         break;
     }
   }
 
-  paint(tileData, type = 1) {
-    if (!tileData[this.mouseGridIndex.x]) tileData[this.mouseGridIndex.x] = {};
-    tileData[this.mouseGridIndex.x][this.mouseGridIndex.y] = type;
+  paint(gridPos, blockType = "wall") {
+    store.dispatch({
+      type: "add-tile",
+      value: this.state,
+      x: gridPos.x,
+      y: gridPos.y,
+      blockType
+    });
   }
 
-  erase(tileData) {
-    if (
-      tileData[this.mouseGridIndex.x] &&
-      tileData[this.mouseGridIndex.x][this.mouseGridIndex.y]
-    ) {
-      delete tileData[this.mouseGridIndex.x][this.mouseGridIndex.y];
-
-      if (Object.keys(tileData[this.mouseGridIndex.x]).length === 0) {
-        delete tileData[this.mouseGridIndex.x];
-      }
-    }
+  erase(gridPos) {
+    store.dispatch({
+      type: "erase-tile",
+      x: gridPos.x,
+      y: gridPos.y,
+    });
   }
 
   isPaintable(gridIndex) {
