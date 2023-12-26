@@ -84,10 +84,10 @@ export default class Brush {
         this.paint(this.mouseGridIndex, "wall");
         break;
       case "start":
-        if (!this.mouseDrag) this.paint(this.mouseGridIndex, "start");
+        if (!this.mouseDrag) this.setStart(this.mouseGridIndex);
         break;
       case "goal":
-        if (!this.mouseDrag) this.paint(this.mouseGridIndex, "goal");
+        if (!this.mouseDrag) this.addGoal(this.mouseGridIndex);
         break;
       case "eraser":
         this.erase(this.mouseGridIndex);
@@ -95,6 +95,25 @@ export default class Brush {
       default:
         break;
     }
+  }
+
+  addGoal(gridPos) {
+    this.erase(gridPos);
+    store.dispatch({
+      type: "add-goal",
+      x: gridPos.x,
+      y: gridPos.y,
+    });
+  }
+
+  setStart(gridPos) {
+    this.erase(gridPos);
+
+    store.dispatch({
+      type: "set-start",
+      x: gridPos.x,
+      y: gridPos.y,
+    });
   }
 
   paint(gridPos, blockType = "wall") {

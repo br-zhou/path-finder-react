@@ -33,7 +33,6 @@ export class TileMap {
   reduxSubscriptionHandler = () => {
     const slice = this.getReduxSlice();
     this.mapData_ = {...slice};
-    console.log("tilemap updated!");
   }
 
   render() {
@@ -50,6 +49,17 @@ export class TileMap {
           const blockType = this.mapData_.tileData[gridX][gridY];
           this.colorGrid({ x: gridX, y: gridY }, tileColorMap[blockType]);
         }
+      }
+    }
+
+    if (this.mapData_.start != null) {
+      const pos = this.mapData_.start;
+      this.colorGrid(pos, tileColorMap["start"]);
+    }
+
+    for (const gridX of Object.keys(this.mapData_.goals)) {
+      for (const gridY of Object.keys(this.mapData_.goals[gridX])) {
+        this.colorGrid({ x: gridX, y: gridY }, tileColorMap["goal"]);
       }
     }
   }
