@@ -6,7 +6,7 @@ import { TILE_SIZE, MAP_OFFSET } from "./tileMap";
 const TILE_SPAWN_ANIMATION_TIME = 0.125;
 
 export class Tile {
-    constructor(gridPos, type, creationTime) {
+    constructor(gridPos, type, creationTime, color="#000000") {
         this.gridPos = gridPos;
         this.type = type;
         this.createdAt = creationTime;
@@ -14,6 +14,7 @@ export class Tile {
         this.renderedTileSize = 0;
         this.animationFinished = false;
         this.deleted = false;
+        this.color = color;
     }
 
     update(dtSec, elapsedTimeSec) {
@@ -57,7 +58,7 @@ export class Tile {
             },
             this.renderedTileSize + this.renderedTileSize / 100,
             this.renderedTileSize + this.renderedTileSize / 100,
-            "#000000"
+            this.color
         );
     }
 

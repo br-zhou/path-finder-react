@@ -25,7 +25,12 @@ const reducer = (state = initialState, action) => {
             result.mapData.goals = {};
             return result;
         case "set-start":
-            result.mapData.start = { x: action.x, y: action.y }
+            result.mapData.start = new Tile(
+                new Vector2(action.x, action.y),
+                "start",
+                getElapsedTime(),
+                "#00FF00"
+            );
             return result;
         case "add-goal":
             const goals = result.mapData.goals;
@@ -45,8 +50,6 @@ const reducer = (state = initialState, action) => {
                 getElapsedTime(),
             );
 
-            console.log("new tile!");
-
             return result;
         case "erase-tile":
             if (action.omit !== "wall") {
@@ -60,7 +63,12 @@ const reducer = (state = initialState, action) => {
             }
 
             if (action.omit !== "start") {
-                // todo
+                const start = result.mapData.start;
+                if (start !== null &&
+                    start.gridPos.x === action.x &&
+                    start.gridPos.y === action.y) {
+                    start.delete();
+                }
             }
 
             if (action.omit !== "goal") {
@@ -70,7 +78,6 @@ const reducer = (state = initialState, action) => {
             return result;
         case "delete-tile":
             // delete walls
-            console.log(action.omit)
             if (
                 tileData[action.x] &&
                 tileData[action.x][action.y]
@@ -84,8 +91,8 @@ const reducer = (state = initialState, action) => {
             }
             // delete start
             if (result.mapData.start && action.omit !== "start") {
-                if (result.mapData.start.x === action.x &&
-                    result.mapData.start.y === action.y) {
+                if (result.mapData.start.gridPos.x === action.x &&
+                    result.mapData.start.gridPos.y === action.y) {
                     result.mapData.start = null;
                 }
             }

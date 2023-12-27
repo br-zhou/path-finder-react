@@ -36,7 +36,7 @@ export class TileMap {
   update(dtSec, elapsedTimeSec) {
     // todo: implement tile update calls
 
-    // render blocks
+    // update blocks
     if (this.mapData_.tileData != null) {
       // todo: optimize rendering to only show tiles visible to camera
       for (const gridX of Object.keys(this.mapData_.tileData)) {
@@ -46,6 +46,10 @@ export class TileMap {
       }
     }
 
+    // update start
+    if (this.mapData_.start != null) {
+      this.mapData_.start.update(dtSec, elapsedTimeSec);
+    }
   }
 
   render() {
@@ -65,8 +69,7 @@ export class TileMap {
     }
 
     if (this.mapData_.start != null) {
-      const pos = this.mapData_.start;
-      this.colorGrid(pos, tileColorMap["start"]);
+      this.mapData_.start.render();
     }
 
     for (const gridX of Object.keys(this.mapData_.goals)) {
