@@ -157,6 +157,9 @@ export default class Brush {
   }
 
   render = () => {
+    const fullState = store.getState();
+    if (fullState.isSearching) return;
+    
     const tileEntity = this.tileMap.tileIndexToEntity(this.mouseGridIndex);
 
     const paintable = this.isPaintable(this.mouseGridIndex);
