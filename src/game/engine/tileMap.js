@@ -3,6 +3,7 @@ import { Vector2 } from "./vector2.js";
 import store from "../../store/redux.js";
 
 export const TILE_SIZE = 2;
+export const MAP_OFFSET = new Vector2(0, 0);
 
 const tileColorMap = {
   "wall" : "#000000",
@@ -20,9 +21,6 @@ export class TileMap {
     store.subscribe(this.reduxSubscriptionHandler);
 
     this.mapData_ = this.getReduxSlice();
-
-    this.offsetX_ = 0;
-    this.offsetY_ = 0;
   }
 
   getReduxSlice = () => {
@@ -50,8 +48,9 @@ export class TileMap {
       // todo: optimize rendering to only show tiles visible to camera
       for (const gridX of Object.keys(this.mapData_.tileData)) {
         for (const gridY of Object.keys(this.mapData_.tileData[gridX])) {
-          const blockType = this.mapData_.tileData[gridX][gridY].type;
-          this.colorGrid({ x: gridX, y: gridY }, tileColorMap[blockType]);
+          // const blockType = this.mapData_.tileData[gridX][gridY].type;
+          // this.colorGrid({ x: gridX, y: gridY }, tileColorMap[blockType]);
+          this.mapData_.tileData[gridX][gridY].render(this);
         }
       }
     }
@@ -75,8 +74,8 @@ export class TileMap {
   colorGrid({ x, y }, color) {
     this.tools.drawRect(
       {
-        x: x * TILE_SIZE + this.offsetX_,
-        y: y * TILE_SIZE + this.offsetY_,
+        x: x * TILE_SIZE + MAP_OFFSET.x,
+        y: y * TILE_SIZE + MAP_OFFSET.y,
       },
       TILE_SIZE + TILE_SIZE / 100,
       TILE_SIZE + TILE_SIZE / 100,
@@ -91,8 +90,8 @@ export class TileMap {
   outlineGrid({ x, y }, color) {
     this.tools.drawRectOutline(
       {
-        x: x * TILE_SIZE + this.offsetX_,
-        y: y * TILE_SIZE + this.offsetY_,
+        x: x * TILE_SIZE + MAP_OFFSET.x,
+        y: y * TILE_SIZE + MAP_OFFSET.y,
       },
       TILE_SIZE,
       TILE_SIZE,
@@ -101,11 +100,11 @@ export class TileMap {
   }
 
   get offsetX() {
-    return this.offsetX_;
+    return MAP_OFFSET.x;
   }
 
   get offsetY() {
-    return this.offsetY_;
+    return MAP_OFFSET.y;
   }
 
   /**
@@ -113,7 +112,7 @@ export class TileMap {
    * @returns {number, number} index in tileGrid
    */
   positionToGridIndex({ x, y }) {
-    const OffsetPosition = { x: x - this.offsetX_, y: y - this.offsetY_ };
+    const OffsetPosition = { x: x - MAP_OFFSET.x, y: y - MAP_OFFSET.y };
 
     const gridIndex = {
       x: Math.floor(OffsetPosition.x / TILE_SIZE),
@@ -130,8 +129,8 @@ export class TileMap {
    */
   gridIndexToPosition({ x, y }) {
     const worldPosition = {
-      x: x * TILE_SIZE + this.offsetX_,
-      y: y * TILE_SIZE + this.offsetY_,
+      x: x * TILE_SIZE + MAP_OFFSET.x,
+      y: y * TILE_SIZE + MAP_OFFSET.y,
     };
 
     return worldPosition;
