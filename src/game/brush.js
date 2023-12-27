@@ -117,6 +117,7 @@ export default class Brush {
   }
 
   paint(gridPos, blockType = "wall") {
+    this.erase(this.mouseGridIndex);
     store.dispatch({
       type: "add-tile",
       value: this.state,
