@@ -16,6 +16,11 @@ const reducer = (state = initialState, action) => {
     const tileData = result.mapData.tileData;
 
     switch (action.type) {
+        case "clear-map":
+            result.mapData.tileData = {};
+            result.mapData.start = null;
+            result.mapData.goals = {};
+            return result;
         case "set-start":
             result.mapData.start = { x: action.x, y: action.y }
             return result;
