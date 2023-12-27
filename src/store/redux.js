@@ -5,6 +5,7 @@ import { getElapsedTime } from '../game/engine/animationLoop';
 
 const initialState = {
     brushType: "brush",
+    isSearching: false,
     mapData: {
         width: 15,
         height: 15,
@@ -21,6 +22,9 @@ const reducer = (state = initialState, action) => {
     const goalData = result.mapData.goals;
 
     switch (action.type) {
+        case "toggle-search":
+            result.isSearching = !result.isSearching;
+            return result;
         case "clear-map":
             result.mapData.tileData = {};
             result.mapData.start = null;

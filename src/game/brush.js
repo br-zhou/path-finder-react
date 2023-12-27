@@ -79,6 +79,7 @@ export default class Brush {
     if (!this.isPaintable(this.mouseGridIndex)) return;
 
     const fullState = store.getState();
+    if (fullState.isSearching) return;
 
     switch (fullState.brushType) {
       case "brush":
