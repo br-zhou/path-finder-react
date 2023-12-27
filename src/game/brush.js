@@ -36,7 +36,7 @@ export default class Brush {
       case "s":
         newBrushState = "start";
         break;
-      case "f":
+      case "g":
         newBrushState = "goal";
         break;
       default:
