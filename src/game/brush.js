@@ -71,7 +71,6 @@ export default class Brush {
   update() {
     this.mouseWorldPos = this.tools.screenToWorld(this.mousePos);
     this.mouseGridIndex = this.tileMap.positionToGridIndex(this.mouseWorldPos);
-    this.render();
 
     if (this.mouseDown) this.handlePainting();
   }
@@ -98,7 +97,7 @@ export default class Brush {
   }
 
   addGoal(gridPos) {
-    this.erase(gridPos);
+    this.erase(gridPos, "goal");
     store.dispatch({
       type: "add-goal",
       x: gridPos.x,
@@ -107,7 +106,7 @@ export default class Brush {
   }
 
   setStart(gridPos) {
-    this.erase(gridPos);
+    this.erase(gridPos, "start");
 
     store.dispatch({
       type: "set-start",
@@ -117,7 +116,7 @@ export default class Brush {
   }
 
   paint(gridPos, blockType = "wall") {
-    this.erase(this.mouseGridIndex);
+    this.erase(this.mouseGridIndex, "wall");
     store.dispatch({
       type: "add-tile",
       value: this.state,
@@ -127,11 +126,12 @@ export default class Brush {
     });
   }
 
-  erase(gridPos) {
+  erase(gridPos, omit = null) {
     store.dispatch({
       type: "erase-tile",
       x: gridPos.x,
       y: gridPos.y,
+      omit
     });
   }
 

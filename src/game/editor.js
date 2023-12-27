@@ -26,7 +26,11 @@ export class Editor {
   }
 
   loop = (dtSec, elapsedTimeSec) => {
-    this.scene.render();
+    this.scene.update(dtSec, elapsedTimeSec);
+    
     this.brush.update();
+
+    this.scene.render();
+    this.brush.render();
   };
 }

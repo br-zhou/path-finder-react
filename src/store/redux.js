@@ -1,4 +1,7 @@
 import { createStore } from 'redux';
+import { Tile } from '../game/engine/tile';
+import { Vector2 } from '../game/engine/vector2';
+import { getElapsedTime } from '../game/engine/animationLoop';
 
 const initialState = {
     brushMode: "brush",
@@ -33,13 +36,24 @@ const reducer = (state = initialState, action) => {
             if (!tileData[action.x]) {
                 tileData[action.x] = {};
             }
-            tileData[action.x][action.y] = action.blockType;
+
+            if (tileData[action.x][action.y] && tileData[action.x][action.y].type === "wall") return result;
+
+            tileData[action.x][action.y] = new Tile(
+                new Vector2(action.x, action.y),
+                "wall",
+                getElapsedTime(),
+            );
+
+            console.log("new tile!");
+
             return result;
         case "erase-tile":
             // delete walls
             if (
                 tileData[action.x] &&
                 tileData[action.x][action.y]
+                && action.omit !== "wall"
             ) {
                 delete tileData[action.x][action.y];
 
@@ -48,17 +62,18 @@ const reducer = (state = initialState, action) => {
                 }
             }
             // delete start
-            if (result.mapData.start) {
+            if (result.mapData.start && action.omit !== "start") {
                 if (result.mapData.start.x === action.x &&
                     result.mapData.start.y === action.y) {
-                        result.mapData.start = null;
+                    result.mapData.start = null;
                 }
             }
 
             // delete goals
             if (
                 result.mapData.goals[action.x] &&
-                result.mapData.goals[action.x][action.y]
+                result.mapData.goals[action.x][action.y] &&
+                action.omit !== "goal"
             ) {
                 delete result.mapData.goals[action.x][action.y];
 

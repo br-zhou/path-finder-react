@@ -35,6 +35,10 @@ export class TileMap {
     this.mapData_ = {...slice};
   }
 
+  update(dtSec, elapsedTimeSec) {
+    // todo: implement tile update calls
+  }
+
   render() {
     this.tools.drawRectOutline(
       new Vector2(0, (this.mapData_.height - 1) * TILE_SIZE),
@@ -46,7 +50,7 @@ export class TileMap {
       // todo: optimize rendering to only show tiles visible to camera
       for (const gridX of Object.keys(this.mapData_.tileData)) {
         for (const gridY of Object.keys(this.mapData_.tileData[gridX])) {
-          const blockType = this.mapData_.tileData[gridX][gridY];
+          const blockType = this.mapData_.tileData[gridX][gridY].type;
           this.colorGrid({ x: gridX, y: gridY }, tileColorMap[blockType]);
         }
       }

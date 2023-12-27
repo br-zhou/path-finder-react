@@ -12,6 +12,10 @@ export class Scene {
     this.tileMap = new TileMap();
   }
 
+  update(dtSec, elapsedTimeSec) {
+    this.tileMap.update(dtSec, elapsedTimeSec);
+  }
+
   /**
    * renders background, foreground, the entities onto canvas
    */

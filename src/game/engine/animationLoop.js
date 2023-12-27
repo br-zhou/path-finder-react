@@ -1,3 +1,9 @@
+let elapsedTimeSec = 0;
+
+export function getElapsedTime() {
+  return elapsedTimeSec;
+}
+
 /**
  * Starts an animation loop and calls callback every frame
  * @param {function(number, number)} callback loop function that is called every frame.
@@ -7,7 +13,7 @@ export function startLoop(callback) {
   let lastFrameElapsedTimeMillis = 0;
 
   function loop(elapsedTimeMillis) {
-    const elapsedTimeSec = elapsedTimeMillis / 1000;
+    elapsedTimeSec = elapsedTimeMillis / 1000;
     let dtSec = (elapsedTimeMillis - lastFrameElapsedTimeMillis) / 1000;
     
     const maxDt = 0.1;
