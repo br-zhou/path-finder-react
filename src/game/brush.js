@@ -97,7 +97,7 @@ export default class Brush {
   }
 
   addGoal(gridPos) {
-    this.erase(gridPos, "goal");
+    this.delete(gridPos, "goal");
     store.dispatch({
       type: "add-goal",
       x: gridPos.x,
@@ -106,7 +106,7 @@ export default class Brush {
   }
 
   setStart(gridPos) {
-    this.erase(gridPos, "start");
+    this.delete(gridPos, "start");
 
     store.dispatch({
       type: "set-start",
@@ -116,7 +116,7 @@ export default class Brush {
   }
 
   paint(gridPos, blockType = "wall") {
-    this.erase(this.mouseGridIndex, "wall");
+    this.delete(this.mouseGridIndex, "wall");
     store.dispatch({
       type: "add-tile",
       value: this.state,
@@ -132,6 +132,14 @@ export default class Brush {
       x: gridPos.x,
       y: gridPos.y,
       omit
+    });
+  }
+
+  delete(gridPos) {
+    store.dispatch({
+      type: "delete-tile",
+      x: gridPos.x,
+      y: gridPos.y,
     });
   }
 

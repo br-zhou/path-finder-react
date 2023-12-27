@@ -49,6 +49,26 @@ const reducer = (state = initialState, action) => {
 
             return result;
         case "erase-tile":
+            if (action.omit !== "wall") {
+                if (
+                    tileData[action.x] &&
+                    tileData[action.x][action.y] &&
+                    !tileData[action.x][action.y].deleted
+                ) {
+                    tileData[action.x][action.y].delete();
+                }
+            }
+
+            if (action.omit !== "start") {
+                // todo
+            }
+
+            if (action.omit !== "goal") {
+                // todo
+            }
+
+            return result;
+        case "delete-tile":
             // delete walls
             if (
                 tileData[action.x] &&

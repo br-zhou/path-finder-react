@@ -35,6 +35,17 @@ export class TileMap {
 
   update(dtSec, elapsedTimeSec) {
     // todo: implement tile update calls
+
+    // render blocks
+    if (this.mapData_.tileData != null) {
+      // todo: optimize rendering to only show tiles visible to camera
+      for (const gridX of Object.keys(this.mapData_.tileData)) {
+        for (const gridY of Object.keys(this.mapData_.tileData[gridX])) {
+          this.mapData_.tileData[gridX][gridY].update(dtSec, elapsedTimeSec);
+        }
+      }
+    }
+
   }
 
   render() {
@@ -48,9 +59,7 @@ export class TileMap {
       // todo: optimize rendering to only show tiles visible to camera
       for (const gridX of Object.keys(this.mapData_.tileData)) {
         for (const gridY of Object.keys(this.mapData_.tileData[gridX])) {
-          // const blockType = this.mapData_.tileData[gridX][gridY].type;
-          // this.colorGrid({ x: gridX, y: gridY }, tileColorMap[blockType]);
-          this.mapData_.tileData[gridX][gridY].render(this);
+          this.mapData_.tileData[gridX][gridY].render();
         }
       }
     }
