@@ -14,7 +14,6 @@ export default class Brush {
     this.mouseWorldPos = null;
     this.mouseGridIndex = null;
     this.canvas = this.scene.camera_.canvas_.canvas_;
-    this.state = "brush";
 
     document.addEventListener("keydown", this.onKeyDown);
     this.canvas.addEventListener("mousedown", this.onMouseDown);
@@ -25,25 +24,26 @@ export default class Brush {
   onKeyDown = (e) => {
     if (e.repeat) return;
     const key = e.key.toLowerCase();
+    let newBrushState = null;
 
     switch (key) {
       case "e":
-        this.state = "eraser";
+        newBrushState = "eraser";
         break;
       case "b":
-        this.state = "brush";
+        newBrushState = "brush";
         break;
       case "s":
-        this.state = "start";
+        newBrushState = "start";
         break;
       case "f":
-        this.state = "goal";
+        newBrushState = "goal";
         break;
       default:
-        break;
+        return;
     }
 
-    store.dispatch({ type: "brushMode", value: this.state });
+    store.dispatch({ type: "brushType", value: newBrushState });
   };
 
   onMouseDown = (e) => {
@@ -78,7 +78,9 @@ export default class Brush {
   handlePainting() {
     if (!this.isPaintable(this.mouseGridIndex)) return;
 
-    switch (this.state) {
+    const fullState = store.getState();
+
+    switch (fullState.brushType) {
       case "brush":
         this.paint(this.mouseGridIndex, "wall");
         break;
@@ -119,7 +121,6 @@ export default class Brush {
     this.delete(this.mouseGridIndex, "wall");
     store.dispatch({
       type: "add-tile",
-      value: this.state,
       x: gridPos.x,
       y: gridPos.y,
       blockType

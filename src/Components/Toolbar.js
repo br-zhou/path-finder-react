@@ -5,7 +5,7 @@ const Toolbar = () => {
 
     const clickHandler = (mode) => {
         console.log(mode);
-        store.dispatch({type: "brushMode", value: mode});
+        store.dispatch({ type: "brushType", value: mode });
     }
 
     return <div id="left-bar">

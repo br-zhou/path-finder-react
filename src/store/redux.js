@@ -4,7 +4,7 @@ import { Vector2 } from '../game/engine/vector2';
 import { getElapsedTime } from '../game/engine/animationLoop';
 
 const initialState = {
-    brushMode: "brush",
+    brushType: "brush",
     mapData: {
         width: 15,
         height: 15,
