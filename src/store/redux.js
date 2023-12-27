@@ -16,7 +16,9 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     let result = { ...state };
+    
     const tileData = result.mapData.tileData;
+    const goalData = result.mapData.goals;
 
     switch (action.type) {
         case "clear-map":
@@ -35,7 +37,13 @@ const reducer = (state = initialState, action) => {
         case "add-goal":
             const goals = result.mapData.goals;
             if (goals[action.x] === undefined) goals[action.x] = {};
-            goals[action.x][action.y] = "goal";
+            goals[action.x][action.y] = new Tile(
+                new Vector2(action.x, action.y),
+                "goal",
+                getElapsedTime(),
+                "#FF00FF"
+            );
+
             return result;
         case "add-tile":
             if (!tileData[action.x]) {
@@ -72,7 +80,13 @@ const reducer = (state = initialState, action) => {
             }
 
             if (action.omit !== "goal") {
-                // todo
+                if (
+                    goalData[action.x] &&
+                    goalData[action.x][action.y] &&
+                    !goalData[action.x][action.y].deleted
+                ) {
+                    goalData[action.x][action.y].delete();
+                }
             }
 
             return result;

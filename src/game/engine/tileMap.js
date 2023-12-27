@@ -5,11 +5,6 @@ import store from "../../store/redux.js";
 export const TILE_SIZE = 2;
 export const MAP_OFFSET = new Vector2(0, 0);
 
-const tileColorMap = {
-  "wall" : "#000000",
-  "start" : "#00FF00",
-  "finish" : "#FF0000"
-}
 /**
  * TileMap for ground
  */
@@ -50,6 +45,14 @@ export class TileMap {
     if (this.mapData_.start != null) {
       this.mapData_.start.update(dtSec, elapsedTimeSec);
     }
+
+    // update goals
+
+    for (const gridX of Object.keys(this.mapData_.goals)) {
+      for (const gridY of Object.keys(this.mapData_.goals[gridX])) {
+        this.mapData_.goals[gridX][gridY].update(dtSec, elapsedTimeSec);
+      }
+    }
   }
 
   render() {
@@ -74,7 +77,7 @@ export class TileMap {
 
     for (const gridX of Object.keys(this.mapData_.goals)) {
       for (const gridY of Object.keys(this.mapData_.goals[gridX])) {
-        this.colorGrid({ x: gridX, y: gridY }, tileColorMap["goal"]);
+        this.mapData_.goals[gridX][gridY].render();
       }
     }
   }
