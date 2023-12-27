@@ -135,11 +135,12 @@ export default class Brush {
     });
   }
 
-  delete(gridPos) {
+  delete(gridPos, omit = null) {
     store.dispatch({
       type: "delete-tile",
       x: gridPos.x,
       y: gridPos.y,
+      omit
     });
   }
 

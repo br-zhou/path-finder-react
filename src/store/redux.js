@@ -70,6 +70,7 @@ const reducer = (state = initialState, action) => {
             return result;
         case "delete-tile":
             // delete walls
+            console.log(action.omit)
             if (
                 tileData[action.x] &&
                 tileData[action.x][action.y]
