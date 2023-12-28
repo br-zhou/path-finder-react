@@ -13,6 +13,7 @@ const initialState = {
         start: null,
         goals: {},
     },
+    errorMsg: null,
 };
 
 const reducer = (state = initialState, action) => {
@@ -23,7 +24,19 @@ const reducer = (state = initialState, action) => {
 
     switch (action.type) {
         case "toggle-search":
-            result.isSearching = !result.isSearching;
+            if (result.isSearching === false) {
+                if (result.mapData.start === null) {
+                    result.errorMsg = "ERROR: MUST HAVE STARTING TILE";
+                } else if (Object.keys(result.mapData.goals).length === 0) {
+                    result.errorMsg = "ERROR: MUST HAVE AT LEAST 1 GOAL TILE";
+                } else {
+                    result.isSearching = true;
+                    result.errorMsg = null;
+                }
+            } else {
+                result.isSearching = false;
+            }
+
             return result;
         case "clear-map":
             result.mapData.tileData = {};

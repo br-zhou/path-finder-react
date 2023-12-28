@@ -1,6 +1,7 @@
 import { CanvasTools } from "./canvasTools.js";
 import { Vector2 } from "./vector2.js";
 import store from "../../store/redux.js";
+import { PathFinder } from "./pathFinder.js";
 
 export const TILE_SIZE = 2;
 export const MAP_OFFSET = new Vector2(0, 0);
@@ -12,7 +13,7 @@ export class TileMap {
   constructor() {
     this.mapData_ = null;
     this.tools = new CanvasTools();
-
+    this.pathFinder = new PathFinder();
     store.subscribe(this.reduxSubscriptionHandler);
 
     this.mapData_ = this.getReduxSlice();
@@ -53,6 +54,8 @@ export class TileMap {
         this.mapData_.goals[gridX][gridY].update(dtSec, elapsedTimeSec);
       }
     }
+
+    this.pathFinder.update(dtSec, elapsedTimeSec);
   }
 
   render() {
@@ -80,6 +83,8 @@ export class TileMap {
         this.mapData_.goals[gridX][gridY].render();
       }
     }
+
+    this.pathFinder.render();
   }
 
   /**
