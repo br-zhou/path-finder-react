@@ -3,7 +3,6 @@ import store from "../store/redux";
 
 const HotBar = () => {
     const isSearching = useSelector(state => state.isSearching);
-    const modalMsg = useSelector(state => state.modalMsg);
 
     const clearMap = () => {
         if (isSearching) return;

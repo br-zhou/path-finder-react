@@ -55,6 +55,7 @@ export class PathFinder {
         // insert starting position into frontier
         this.heap.insert(startPosition, 0, this.getHeuristic(startPosition));
 
+        clearInterval(this.stepIntervalId);
         this.stepIntervalId = setInterval(this.step, STEP_TIMEOUT_MS);
     }
 

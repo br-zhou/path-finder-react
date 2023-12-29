@@ -61,7 +61,7 @@ const reducer = (state = initialState, action) => {
                 new Vector2(action.x, action.y),
                 "goal",
                 getElapsedTime(),
-                "#FF00FF"
+                "#FF0000"
             );
 
             return result;
