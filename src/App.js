@@ -3,6 +3,7 @@ import { Editor } from "./game/editor.js";
 import Toolbar from "./Components/Toolbar.js";
 import HotBar from "./Components/Hotbar.js";
 import Modal from "./Components/Modal.js";
+import Menubar from "./Components/Menubar.js";
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
     <>
       <Toolbar />
       <Modal />
+      <Menubar />
       <HotBar />
     </>
   );
