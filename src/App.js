@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Editor } from "./game/editor.js";
 import Toolbar from "./Components/Toolbar.js";
 import HotBar from "./Components/Hotbar.js";
+import Modal from "./Components/Modal.js";
 
 
 function App() {
@@ -14,7 +15,7 @@ function App() {
   return (
     <>
       <Toolbar />
-
+      <Modal />
       <HotBar />
     </>
   );

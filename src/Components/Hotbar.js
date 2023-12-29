@@ -3,7 +3,7 @@ import store from "../store/redux";
 
 const HotBar = () => {
     const isSearching = useSelector(state => state.isSearching);
-    const errorMsg = useSelector(state => state.errorMsg);
+    const modalMsg = useSelector(state => state.modalMsg);
 
     const clearMap = () => {
         if (isSearching) return;
@@ -17,7 +17,6 @@ const HotBar = () => {
     const getSearchBtnColor = () => isSearching ? "bg-red-500 hover:bg-red-700" : "bg-green-500 hover:bg-green-700";
 
     return <div id="bot-right">
-        {errorMsg}
         <button className={`${getSearchBtnColor()} text-white font-bold py-2 px-4 mx-2 rounded select-none`} onClick={toggleSearch}>
             {isSearching ? "CANCEL SEARCH" : "START SEARCH ⭐"}
         </button>

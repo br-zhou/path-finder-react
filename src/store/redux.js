@@ -13,25 +13,28 @@ const initialState = {
         start: null,
         goals: {},
     },
-    errorMsg: null,
+    modalMsg: null,
 };
 
 const reducer = (state = initialState, action) => {
     let result = { ...state };
-    
+
     const tileData = result.mapData.tileData;
     const goalData = result.mapData.goals;
 
     switch (action.type) {
+        case "close-modal":
+            result.modalMsg = null;
+            return result;
         case "toggle-search":
             if (result.isSearching === false) {
                 if (result.mapData.start === null) {
-                    result.errorMsg = "ERROR: MUST HAVE STARTING TILE";
+                    result.modalMsg = ["ERROR", "Must have starting tile for search!"];
                 } else if (Object.keys(result.mapData.goals).length === 0) {
-                    result.errorMsg = "ERROR: MUST HAVE AT LEAST 1 GOAL TILE";
+                    result.modalMsg = ["ERROR", "Must have at least 1 goal tile for search!"];
                 } else {
                     result.isSearching = true;
-                    result.errorMsg = null;
+                    result.modalMsg = null;
                 }
             } else {
                 result.isSearching = false;
