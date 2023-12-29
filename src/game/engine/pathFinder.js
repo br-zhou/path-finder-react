@@ -1,6 +1,8 @@
 import store from "../../store/redux";
 import { CanvasTools } from "./canvasTools";
-import { MAP_OFFSET, TILE_SIZE } from "./tileMap";
+import { Heap } from "./myHeap";
+// import { MAP_OFFSET, TILE_SIZE } from "./tileMap";
+import { Vector2 } from "./vector2";
 
 export class PathFinder {
     constructor() {
@@ -9,6 +11,7 @@ export class PathFinder {
         this.pathTiles = {};
         store.subscribe(this.reduxSubscriptionHandler);
         this.tools = new CanvasTools();
+        this.heap = new Heap();
     }
 
     reduxSubscriptionHandler = () => {
@@ -42,11 +45,36 @@ export class PathFinder {
             }
         }
 
-        console.log(this.mapData);
+        const startPosition = this.mapData.start.gridPos;
+
+        // insert starting position into frontier
+        this.heap.insert(startPosition, 0, this.getHeuristic(startPosition));
     }
 
     update(dtSec, elapsedTimeSec) {
         if (!this.isSearching) return;
+
+        // if time > wait time, step the generic search algo
+        // make sure not to re-search nodes already on the tree!
+    }
+
+    getHeuristic(pos) {
+        let minHeuristic = -1;
+
+        for (const gridX of Object.keys(this.mapData.goals)) {
+            for (const gridY of Object.keys(this.mapData.goals[gridX])) {
+                const dist = this.getDist(pos, new Vector2(gridX, gridY));
+                if (minHeuristic === -1 || dist < minHeuristic) {
+                    minHeuristic = dist;
+                }
+            }
+        } 
+
+        return minHeuristic;
+    }
+
+    getDist(posA, posB) {
+        return Math.abs(posA.x - posB.x) + Math.abs(posA.y - posB.y);
     }
 
     render() {
