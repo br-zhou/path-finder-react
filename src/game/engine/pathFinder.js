@@ -6,8 +6,6 @@ import { Tile } from "./tile";
 // import { MAP_OFFSET, TILE_SIZE } from "./tileMap";
 import { Vector2 } from "./vector2";
 
-const STEP_TIMEOUT_MS = 0;
-
 export class PathFinder {
     constructor() {
         this.mapData = null;
@@ -16,6 +14,7 @@ export class PathFinder {
         store.subscribe(this.reduxSubscriptionHandler);
         this.tools = new CanvasTools();
         this.heap = new Heap();
+        this.stepDelay = null;
     }
 
     reduxSubscriptionHandler = () => {
@@ -32,6 +31,7 @@ export class PathFinder {
         this.pathTiles = {};
         this.heap.clear();
         this.mapData = JSON.parse(JSON.stringify(state.mapData));
+        this.stepDelay = state.stepDelay;
 
         // delete all tiles that are in delete animation
         for (const gridX of Object.keys(this.mapData.tileData)) {
@@ -56,7 +56,7 @@ export class PathFinder {
         this.heap.insert(startPosition, 0, this.getHeuristic(startPosition));
 
         clearInterval(this.stepIntervalId);
-        this.stepIntervalId = setInterval(this.step, STEP_TIMEOUT_MS);
+        this.stepIntervalId = setInterval(this.step, this.stepDelay);
     }
 
     step = () => {

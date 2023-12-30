@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import SettingsModal from "./SettingsModal";
+import SettingsModal from "./Settings/SettingsModal";
 
 const Menubar = () => {
     const isSearching = useSelector(state => state.isSearching);

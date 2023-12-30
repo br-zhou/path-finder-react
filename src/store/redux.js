@@ -14,6 +14,7 @@ const initialState = {
         goals: {},
     },
     modalMsg: null,
+    stepDelay: 50,
 };
 
 const reducer = (state = initialState, action) => {
@@ -23,8 +24,21 @@ const reducer = (state = initialState, action) => {
     const goalData = result.mapData.goals;
 
     switch (action.type) {
+        case "update-settings":
+            result.mapData.width = action.newWidth;
+            result.mapData.height = action.newHeight;
+            result.stepDelay = action.newDelay;
+
+            //clear map
+            result.mapData.tileData = {};
+            result.mapData.start = null;
+            result.mapData.goals = {};
+            return result;
         case "close-modal":
             result.modalMsg = null;
+            return result;
+        case "modal-msg":
+            result.modalMsg = [action.title, action.message];
             return result;
         case "toggle-search":
             if (result.isSearching === false) {
