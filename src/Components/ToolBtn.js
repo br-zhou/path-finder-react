@@ -10,8 +10,8 @@ const ToolbarBtn = (props) => {
 
     const getBtnColor = () => {
         if (isSearching) return 'bg-gray-500';
-        else if (props.mode === canvasBrushType) return 'bg-blue-400';
-        else return 'bg-blue-500';
+        else if (props.mode === canvasBrushType) return 'bg-blue-400 hover:bg-blue-300';
+        else return 'bg-blue-500 hover:bg-blue-600';
     }
 
     return (
