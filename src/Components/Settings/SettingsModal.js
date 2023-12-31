@@ -17,8 +17,6 @@ const SettingsModal = (props) => {
             const newWidth = parseInt(gridXRef.current.value);
             const newHeight = parseInt(gridYRef.current.value);
             const newDelay = parseInt(stepDelayRef.current.value);
-            
-            console.log(newWidth, newHeight, newDelay);
 
             store.dispatch({
                 type: "update-settings",
@@ -32,7 +30,7 @@ const SettingsModal = (props) => {
             store.dispatch({
                 type: "modal-msg",
                 title: "ERROR",
-                message: "An error occurred. Please make sure your input is valid."
+                message: "An error occurred."
             });
 
             return;

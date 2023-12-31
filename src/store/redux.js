@@ -30,18 +30,13 @@ const reducer = (state = initialState, action) => {
             result.mapData.height = action.newHeight;
             result.stepDelay = action.newDelay;
 
-            try {
-                deleteAllTilesOutsideRange(
-                    result,
-                    {
-                        x: action.newWidth,
-                        y: action.newHeight
-                    }
-                );
-            } catch (e) {
-                console.log(e)
-            }
-
+            deleteAllTilesOutsideRange(
+                result,
+                {
+                    x: action.newWidth,
+                    y: action.newHeight
+                }
+            );
 
             return result;
         case "close-modal":
