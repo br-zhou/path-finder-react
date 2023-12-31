@@ -2,6 +2,7 @@ import { createStore } from 'redux';
 import { Tile } from '../game/engine/tile';
 import { Vector2 } from '../game/engine/vector2';
 import { getElapsedTime } from '../game/engine/animationLoop';
+import { deleteAllTilesOutsideRange } from '../util/redux-util';
 
 const initialState = {
     brushType: "brush",
@@ -14,7 +15,7 @@ const initialState = {
         goals: {},
     },
     modalMsg: null,
-    stepDelay: 50,
+    stepDelay: 25,
 };
 
 const reducer = (state = initialState, action) => {
@@ -29,10 +30,19 @@ const reducer = (state = initialState, action) => {
             result.mapData.height = action.newHeight;
             result.stepDelay = action.newDelay;
 
-            //clear map
-            result.mapData.tileData = {};
-            result.mapData.start = null;
-            result.mapData.goals = {};
+            try {
+                deleteAllTilesOutsideRange(
+                    result,
+                    {
+                        x: action.newWidth,
+                        y: action.newHeight
+                    }
+                );
+            } catch (e) {
+                console.log(e)
+            }
+
+
             return result;
         case "close-modal":
             result.modalMsg = null;
