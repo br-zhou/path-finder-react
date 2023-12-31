@@ -99,7 +99,7 @@ export class PathFinder {
 
     insertNeighbour(node, x, y) {
         const heap = this.heap;
-        const pathCost = node.pathCost + 0.99;
+        const pathCost = node.pathCost + 1;
         const gridIndex = node.gridIndex;
         const pos = Vector2.add(gridIndex, new Vector2(x, y));
 

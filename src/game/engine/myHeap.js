@@ -29,7 +29,7 @@ export class Heap {
 
         while (index > 0) {
             const parentIndex = this.getParentIndex_(index);
-            if (nodes[parentIndex].value > node.value) {
+            if (nodes[parentIndex].value >= node.value) {
                 nodes[index] = nodes[parentIndex];
                 index = parentIndex;
             } else {
