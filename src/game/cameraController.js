@@ -31,6 +31,7 @@ export default class CameraController {
   onMouseDown = (e) => {
     const btn = e.button;
     if (btn === 2) {
+      document.documentElement.style.cursor = 'grab';
       this.camDragData = {
         initMousePos: Vector2.copy(this.mousePos),
         initCamPos: Vector2.copy(this.camera.position_),
@@ -42,6 +43,7 @@ export default class CameraController {
     const btn = e.button;
     if (btn === 2) {
       this.camDragData = null;
+      document.documentElement.style.cursor = 'auto';
     }
   };
 
