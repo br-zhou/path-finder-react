@@ -126,10 +126,10 @@ export class CanvasTools {
   drawRect = ({ x, y }, width, height, color = "#FF000") => {
     this.ctx.fillStyle = color;
     this.ctx.fillRect(
-      this.worldToScreenPosX(x),
-      this.worldToScreenPosY(y),
-      this.worldToScreenConvert(width),
-      this.worldToScreenConvert(height)
+      Math.floor(this.worldToScreenPosX(x)),
+      Math.floor(this.worldToScreenPosY(y)),
+      Math.ceil(this.worldToScreenConvert(width)),
+      Math.ceil(this.worldToScreenConvert(height))
     );
   }
 
