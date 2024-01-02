@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/path-finder-react/static/css/main.60fab466.css",
+    "main.js": "/path-finder-react/static/js/main.83226617.js",
+    "index.html": "/path-finder-react/index.html",
+    "main.60fab466.css.map": "/path-finder-react/static/css/main.60fab466.css.map",
+    "main.83226617.js.map": "/path-finder-react/static/js/main.83226617.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.60fab466.css",
+    "static/js/main.83226617.js"
+  ]
+}
