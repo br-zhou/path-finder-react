@@ -16,10 +16,14 @@ const TutorialModal = (props) => {
                             <h3 className="text-lg font-semibold leading-6 text-gray-900" id="modal-title">CONTROLS:</h3>
                             <div className="mt-2">
                                 <p className="text-gray-500">Hold <strong>right click</strong> to pan around!</p>
-
+                                <br></br>
                                 <p className="text-gray-500">Use the <strong>left click</strong> to paint!</p>
-
-                                <p className="text-gray-500">Start search requires at least a <strong>start tile</strong> and at lest <strong>one goal tile</strong></p>
+                                <br></br>
+                                <p className="text-gray-500">Search Requires:</p>
+                                <ul>
+                                    <li> - a <strong>start tile</strong></li>
+                                    <li> - at least <strong>one goal tile</strong></li>
+                                </ul>
                             </div>
                         </div>
                     </div>
