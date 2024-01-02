@@ -3,6 +3,7 @@ import { Tile } from '../game/engine/tile';
 import { Vector2 } from '../game/engine/vector2';
 import { getElapsedTime } from '../game/engine/animationLoop';
 import { deleteAllTilesOutsideRange } from '../util/redux-util';
+import { CircleTile } from '../game/engine/circleTile';
 
 const initialState = {
     brushType: "brush",
@@ -66,7 +67,7 @@ const reducer = (state = initialState, action) => {
             result.mapData.goals = {};
             return result;
         case "set-start":
-            result.mapData.start = new Tile(
+            result.mapData.start = new CircleTile(
                 new Vector2(action.x, action.y),
                 "start",
                 getElapsedTime(),
@@ -76,7 +77,7 @@ const reducer = (state = initialState, action) => {
         case "add-goal":
             const goals = result.mapData.goals;
             if (goals[action.x] === undefined) goals[action.x] = {};
-            goals[action.x][action.y] = new Tile(
+            goals[action.x][action.y] = new CircleTile(
                 new Vector2(action.x, action.y),
                 "goal",
                 getElapsedTime(),
