@@ -123,7 +123,7 @@ export class CanvasTools {
    * @param {number} height height of rectangle
    * @param {string} color String in the format '#000000'
    */
-  drawRect = ({ x, y }, width, height, color = "#FF0000") => {
+  drawRect = ({ x, y }, width, height, color = "#FF000") => {
     this.ctx.fillStyle = color;
     this.ctx.fillRect(
       this.worldToScreenPosX(x),

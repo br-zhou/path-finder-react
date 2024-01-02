@@ -59,6 +59,8 @@ export class TileMap {
   }
 
   render() {
+    this.pathFinder.render();
+    
     this.tools.drawRectOutline(
       new Vector2(0, (this.mapData_.height - 1) * TILE_SIZE),
       this.mapData_.width * TILE_SIZE,
@@ -83,8 +85,6 @@ export class TileMap {
         this.mapData_.goals[gridX][gridY].render();
       }
     }
-
-    this.pathFinder.render();
   }
 
   /**
@@ -97,8 +97,8 @@ export class TileMap {
         x: x * TILE_SIZE + MAP_OFFSET.x,
         y: y * TILE_SIZE + MAP_OFFSET.y,
       },
-      TILE_SIZE + TILE_SIZE / 100,
-      TILE_SIZE + TILE_SIZE / 100,
+      TILE_SIZE,
+      TILE_SIZE,
       color
     );
   }

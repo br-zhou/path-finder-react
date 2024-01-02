@@ -71,7 +71,7 @@ const reducer = (state = initialState, action) => {
                 new Vector2(action.x, action.y),
                 "start",
                 getElapsedTime(),
-                "#00FF00"
+                "#AAFF00"
             );
             return result;
         case "add-goal":
@@ -81,7 +81,7 @@ const reducer = (state = initialState, action) => {
                 new Vector2(action.x, action.y),
                 "goal",
                 getElapsedTime(),
-                "#FF0000"
+                "#FF5733"
             );
 
             return result;
@@ -96,6 +96,7 @@ const reducer = (state = initialState, action) => {
                 new Vector2(action.x, action.y),
                 "wall",
                 getElapsedTime(),
+                "#3A3B3C"
             );
 
             return result;

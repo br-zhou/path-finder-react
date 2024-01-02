@@ -112,8 +112,8 @@ export class PathFinder {
         );
         this.createPathTile(pos, "rgba(255, 255, 255, 0.25)");
     }
-
-    createPathTile(pos, color = "rgba(255, 255, 0, 0.5)") {
+    // rgba(255, 255, 0, 0.5)
+    createPathTile(pos, color = "#FADA5E") {
         const pathTiles = this.pathTiles;
         if (!pathTiles[pos.x]) pathTiles[pos.x] = {};
         pathTiles[pos.x][pos.y] = new Tile(

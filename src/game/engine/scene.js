@@ -8,7 +8,7 @@ import { TileMap } from "./tileMap.js";
 export class Scene {
   constructor() {
     this.camera_ = new Camera(this);
-    this.backgroundColor_ = '#87CEEB';
+    this.backgroundColor_ = '#355C7D';
     this.tileMap = new TileMap();
   }
 
