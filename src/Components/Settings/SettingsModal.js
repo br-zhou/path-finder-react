@@ -18,6 +18,10 @@ const SettingsModal = (props) => {
             const newHeight = parseInt(gridYRef.current.value);
             const newDelay = parseInt(stepDelayRef.current.value);
 
+            if (newWidth <= 0) throw "Grid width must be a postitive integer.";
+            if (newHeight <= 0) throw "Grid height must be a postitive integer.";
+            if (newDelay < 0) throw "Step delay cannot be negative";
+            
             store.dispatch({
                 type: "update-settings",
                 newWidth,
@@ -30,7 +34,7 @@ const SettingsModal = (props) => {
             store.dispatch({
                 type: "modal-msg",
                 title: "ERROR",
-                message: "An error occurred."
+                message: e
             });
 
             return;
