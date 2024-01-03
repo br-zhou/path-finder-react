@@ -110,7 +110,7 @@ export class PathFinder {
             pathCost,
             this.getHeuristic(pos)
         );
-        this.createPathTile(pos, "rgba(255, 255, 255, 0.25)");
+        this.createPathTile(pos, "#69859c");
     }
     // rgba(255, 255, 0, 0.5)
     createPathTile(pos, color = "#FADA5E") {

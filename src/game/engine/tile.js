@@ -56,8 +56,8 @@ export class Tile {
                 x: this.gridPos.x * TILE_SIZE + MAP_OFFSET.x,
                 y: this.gridPos.y * TILE_SIZE + MAP_OFFSET.y,
             },
-            this.renderedTileSize + this.renderedTileSize / 100,
-            this.renderedTileSize + this.renderedTileSize / 100,
+            this.renderedTileSize,
+            this.renderedTileSize,
             this.color
         );
     }
