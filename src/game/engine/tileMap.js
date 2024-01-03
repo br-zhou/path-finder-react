@@ -61,12 +61,6 @@ export class TileMap {
   render() {
     this.pathFinder.render();
     
-    this.tools.drawRectOutline(
-      new Vector2(0, (this.mapData_.height - 1) * TILE_SIZE),
-      this.mapData_.width * TILE_SIZE,
-      this.mapData_.height * TILE_SIZE
-    );
-
     if (this.mapData_.tileData != null) {
       // todo: optimize rendering to only show tiles visible to camera
       for (const gridX of Object.keys(this.mapData_.tileData)) {
@@ -85,6 +79,14 @@ export class TileMap {
         this.mapData_.goals[gridX][gridY].render();
       }
     }
+
+    this.tools.drawRectOutline(
+      new Vector2(0, (this.mapData_.height - 1) * TILE_SIZE),
+      this.mapData_.width * TILE_SIZE,
+      this.mapData_.height * TILE_SIZE,
+      "#FFFFFF"
+    );
+
   }
 
   /**
