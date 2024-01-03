@@ -21,8 +21,8 @@ const Menubar = () => {
         <SettingsModal open={settingsModal} setOpen={setSettingsModal} />
         <TutorialModal open={tutorialModal} setOpen={setTutorialModal} />
         <div id="top-right">
-            <button className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded mx-2 select-none" onClick={openTutorial}>Controls 🎮</button>
-            <button className="bg-gray-700 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded mx-2 select-none" onClick={openSettings}>Settings ⚙️</button>
+            <button className="bg-gray-300 hover:bg-gray-500 text-black hover:text-white font-bold py-2 px-4 rounded mx-2 select-none" onClick={openTutorial}>Controls 🎮</button>
+            <button className="bg-gray-900 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mx-2 select-none" onClick={openSettings}>Settings ⚙️</button>
         </div>
     </>)
 }
