@@ -1,7 +1,8 @@
 export class TileNode {
-    constructor(gridIndex, cost, heuristic) {
+    constructor(gridIndex, cost, heuristic, path = []) {
         this.gridIndex = gridIndex;
         this.pathCost = cost;
+        this.path = path;
         this.heuristic = heuristic;
         this.value = cost + heuristic;
     }
@@ -16,9 +17,9 @@ export class Heap {
         this.nodes_ = [];
     }
 
-    insert(gridIndex, cost, heuristic) {
+    insert(gridIndex, cost, heuristic, path = []) {
         const nodes = this.nodes_;
-        const node = new TileNode(gridIndex, cost, heuristic)
+        const node = new TileNode(gridIndex, cost, heuristic, [...path, gridIndex])
         nodes.push(node);
         this.bubbleUp_(nodes.length - 1);
     }

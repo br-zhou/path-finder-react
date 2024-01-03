@@ -3,6 +3,7 @@ import { getElapsedTime } from "./animationLoop";
 import { CanvasTools } from "./canvasTools";
 import { Heap } from "./myHeap";
 import { Tile } from "./tile";
+import { MAP_OFFSET, TILE_SIZE } from "./tileMap";
 // import { MAP_OFFSET, TILE_SIZE } from "./tileMap";
 import { Vector2 } from "./vector2";
 
@@ -15,6 +16,7 @@ export class PathFinder {
         this.tools = new CanvasTools();
         this.heap = new Heap();
         this.stepDelay = null;
+        this.finalPath = [];
     }
 
     reduxSubscriptionHandler = () => {
@@ -29,6 +31,7 @@ export class PathFinder {
 
     startSearch = (state) => {
         this.pathTiles = {};
+        this.finalPath = [];
         this.heap.clear();
         this.mapData = JSON.parse(JSON.stringify(state.mapData));
         this.stepDelay = state.stepDelay;
@@ -68,7 +71,9 @@ export class PathFinder {
             this.createPathTile(gridIndex);
 
             if (this.tileIsGoal(gridIndex)) {
+                this.finalPath = node.path;
                 this.endAlgorithmn();
+                return;
             } else {
                 this.addNeighbourToHeap(node);
             }
@@ -92,7 +97,7 @@ export class PathFinder {
 
     tileIsGoal(pos) {
         const goals = this.mapData.goals;
-        if (! goals[pos.x]) return false;
+        if (!goals[pos.x]) return false;
 
         return goals[pos.x][pos.y] && true;
     }
@@ -102,13 +107,14 @@ export class PathFinder {
         const pathCost = node.pathCost + 1;
         const gridIndex = node.gridIndex;
         const pos = Vector2.add(gridIndex, new Vector2(x, y));
-
+        const path = node.path;
         if (!this.isValidPath(pos)) return;
 
         heap.insert(
             pos,
             pathCost,
-            this.getHeuristic(pos)
+            this.getHeuristic(pos),
+            path
         );
         this.createPathTile(pos, "#69859c");
     }
@@ -164,13 +170,47 @@ export class PathFinder {
                 pathsTiles[gridX][gridY].render();
             }
         }
+
+
+        this.renderFinalPath();
+    }
+
+    renderFinalPath() {
+        const PATH_WIDTH = TILE_SIZE / 3;
+        const PATH_COLOR = "#C3B1E1"
+        const finalPath = this.finalPath;
+        const pathLength = finalPath.length;
+        if (finalPath.length === 0) return;
+
+        for (let i = 0; i < pathLength - 1; i++) {
+            const startPoint = new Vector2(
+                finalPath[i].x * TILE_SIZE + MAP_OFFSET.x + TILE_SIZE / 2,
+                finalPath[i].y * TILE_SIZE + MAP_OFFSET.y - TILE_SIZE / 2,
+            );
+
+            const endPoint = new Vector2(
+                finalPath[i + 1].x * TILE_SIZE + MAP_OFFSET.x + TILE_SIZE / 2,
+                finalPath[i + 1].y * TILE_SIZE + MAP_OFFSET.y - TILE_SIZE / 2,
+            );
+
+            this.tools.drawLine(startPoint, endPoint, PATH_COLOR, PATH_WIDTH);
+
+            this.tools.drawCircle(
+                {
+                    x: finalPath[i].x * TILE_SIZE + MAP_OFFSET.x + TILE_SIZE / 2,
+                    y: finalPath[i].y * TILE_SIZE + MAP_OFFSET.y - TILE_SIZE / 2,
+                },
+                PATH_WIDTH / 2,
+                PATH_COLOR);
+        }
+
     }
 
     isValidPath(gridIndex) {
         const mapData = this.mapData;
         const pathTiles = this.pathTiles;
         const wallTiles = this.mapData.tileData;
-        
+
         if (wallTiles[gridIndex.x] && wallTiles[gridIndex.x][gridIndex.y]) return false;
         if (pathTiles[gridIndex.x] && pathTiles[gridIndex.x][gridIndex.y]) return false;
 
