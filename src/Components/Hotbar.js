@@ -20,7 +20,6 @@ const HotBar = () => {
             {isSearching ? "CANCEL SEARCH" : "START SEARCH ⭐"}
         </button>
         {!isSearching && <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-2 select-none" onClick={clearMap}>CLEAR MAP ❌</button>}
-        {!isSearching && <button className="bg-blue-500 text-white font-bold py-2 px-4 rounded mx-2 select-none cursor-not-allowed opacity-50" >RANDOM 🎲</button>}
     </div>
 }
 
