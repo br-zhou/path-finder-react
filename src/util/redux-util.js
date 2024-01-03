@@ -19,7 +19,12 @@ export const deleteAllTilesOutsideRange = (state, { x, y }) => {
 
     for (const gridX of Object.keys(state.mapData.goals)) {
         for (const gridY of Object.keys(state.mapData.goals[gridX])) {
-            if (gridX >= x || gridY >= y) delete state.mapData.goals[gridX][gridY];
+            if (gridX >= x || gridY >= y) {
+                delete state.mapData.goals[gridX][gridY];
+                if (Object.keys(state.mapData.goals[gridX]).length === 0) {
+                    delete state.mapData.goals[gridX];
+                }
+            } 
         }
     }
 }
