@@ -76,7 +76,7 @@ export class PathFinder {
                 this.endAlgorithmn();
                 return;
             } else {
-                this.addNeighbourToHeap(node);
+                this.addNeighborsToHeap(node);
             }
         } else {
             this.endAlgorithmn();
@@ -89,11 +89,11 @@ export class PathFinder {
         // todo: update redux state
     }
 
-    addNeighbourToHeap(node) {
-        this.insertNeighbour(node, -1, 0);
-        this.insertNeighbour(node, 1, 0);
-        this.insertNeighbour(node, 0, -1);
-        this.insertNeighbour(node, 0, 1);
+    addNeighborsToHeap(node) {
+        this.insertNeighbor(node, -1, 0);
+        this.insertNeighbor(node, 1, 0);
+        this.insertNeighbor(node, 0, -1);
+        this.insertNeighbor(node, 0, 1);
     }
 
     tileIsGoal(pos) {
@@ -103,13 +103,13 @@ export class PathFinder {
         return goals[pos.x][pos.y] && true;
     }
 
-    insertNeighbour(node, x, y) {
+    insertNeighbor(node, x, y) {
         const heap = this.heap;
         const pathCost = node.pathCost + 1;
         const gridIndex = node.gridIndex;
         const pos = Vector2.add(gridIndex, new Vector2(x, y));
         const path = node.path;
-        if (!this.isValidPath(pos)) return;
+        if (!this.isValidTile(pos)) return;
 
         heap.insert(
             pos,
@@ -207,7 +207,7 @@ export class PathFinder {
 
     }
 
-    isValidPath(gridIndex) {
+    isValidTile(gridIndex) {
         const mapData = this.mapData;
         const pathTiles = this.pathTiles;
         const wallTiles = this.mapData.tileData;
