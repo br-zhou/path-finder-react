@@ -15,6 +15,7 @@ export class Tile {
         this.animationFinished = false;
         this.deleted = false;
         this.color = color;
+        this.used = false;
     }
 
     update(dtSec, elapsedTimeSec) {

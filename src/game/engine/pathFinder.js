@@ -69,6 +69,7 @@ export class PathFinder {
             const node = heap.remove();
             const gridIndex = node.gridIndex;
             this.createPathTile(gridIndex);
+            this.pathTiles[gridIndex.x][gridIndex.y].used = true;
 
             if (this.tileIsGoal(gridIndex)) {
                 this.finalPath = node.path;
@@ -212,7 +213,10 @@ export class PathFinder {
         const wallTiles = this.mapData.tileData;
 
         if (wallTiles[gridIndex.x] && wallTiles[gridIndex.x][gridIndex.y]) return false;
-        if (pathTiles[gridIndex.x] && pathTiles[gridIndex.x][gridIndex.y]) return false;
+        if (pathTiles[gridIndex.x] &&
+            pathTiles[gridIndex.x][gridIndex.y] &&
+            pathTiles[gridIndex.x][gridIndex.y].used
+        ) return false;
 
         const inBounds = (
             !(gridIndex.x < 0) &&
